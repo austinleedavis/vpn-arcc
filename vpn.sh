@@ -5,7 +5,7 @@
 set -e
 
 
-salloc_command='salloc --job-name=chessGPT --nodes=1 --ntasks-per-node=1 --mem=64GB --time=02:00:00'
+salloc_command='salloc --job-name=Jupyter_Server --nodes=1 --ntasks-per-node=1 --mem=64GB --time=02:00:00'
 
 PIDFILE=/var/run/openconnect.pid
 
