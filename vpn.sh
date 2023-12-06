@@ -5,7 +5,7 @@
 set -e
 
 
-salloc_command='salloc --job-name=chessGPT --nodes=1 --ntasks-per-node=1 --gpus=1 --mem=128GB --time=08:30:00 --constraint=h100'
+salloc_command='salloc --job-name=chessGPT --nodes=1 --ntasks-per-node=1 --mem=64GB --time=02:00:00'
 
 PIDFILE=/var/run/openconnect.pid
 
@@ -42,7 +42,7 @@ Next step:
         --mem=128GB
         --time = 08:30:00
         --constraint=h100
- 3. DO NOT close this terminal open, as salloc starts an interactive session.
+ 3. DO NOT close this terminal; salloc starts an INTERACTIVE session!
 -----------------------------------------------------------------------
 
 EOF
