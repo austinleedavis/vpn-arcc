@@ -1,54 +1,30 @@
 --------------------------------------------------------------------------------------
 **Author:**        R. Paul Wiegand  
 **Date Created:**  2018-11-26  
-**Modified By:**   Austin Davis, 2023-11-24  
+**Modified By:**   Austin Davis, 2023-12-06
 --------------------------------------------------------------------------------------
 
 # Installation
-This package contains three scripts to start a Jupyter Notebook (JN) server:
-1. **startJupyterNotebooks.sh**: Script to start Jupyter Notebooks.
-1. **stopJupyterNotebooks.sh**: Script to stop running Jupyter Notebooks.
-1. **submit-jupyter-notebook-server.slurm**: SLURM script for resource allocation.
+This package contains three two to start a Jupyter Notebook (JN) server:
+1. **vpn.sh**: Script to connect to the UCF vpn.
+1. **startJupyterServer.sh**: Script to start a Jupyter Labs server.
+
+You should the following bookmarklet to your browser:
+```js
+javascript:(function() {  
+    var cookieMatch = document.cookie.match(/webvpn=(.*?);/);  
+    if (cookieMatch && cookieMatch[1]) {    
+        navigator.clipboard.writeText(cookieMatch[1]);    
+        alert(cookieMatch[1]);  
+    } else {    
+        alert(%27No matching cookie found%27);  
+    }})();
+```
 
 # Usage
 
-**Starting Jupyter Notebooks:**
-Log into the user node of your cluster and execute:
-```sh
-./startJupyterNotebooks.sh
-```
-This command submits a SLURM batch job to initialize JN, providing a connection via a web browser. *(See below for option to specify conda environment)*
-
-> **NOTE!** *Default Resources:* The start script requests 1 core, 1 node, and 8GB of memory for two hours. Modify `jupyter-notebooks.slurm` for different resource allocations.
-
-**Stopping Jupyter Notebooks:**
-When finished, terminate JN using:
-```sh
-./stopJupyterNotebooks.sh
-```
-
-
-## Arguments
-
-The `startJupyterNotebooks.sh` script optionally accepts an environment specification for JN.
-
-- **Environment File**: Specify a conda environment with an `environment.yml` file:
-  ```sh
-  ./startJupyterNotebooks.sh /path/to/environment.yml
-  ```
-  If the environment doesn't exist, it's created and set up as a Jupyter kernel, accessible in future sessions.
-
-- **Existing Environment Name**: Use an existing conda environment:
-  ```sh
-  ./startJupyterNotebooks.sh existing_env_name
-  ```
-  This environment, once used, is available as a Jupyter kernel for future sessions.
-
-- **Default Behavior**: Without arguments, the script uses the base conda environment:
-  ```sh
-  ./startJupyterNotebooks.sh
-  ```
-
-### Environment Persistence
-
-Once a conda environment is installed as a Jupyter kernel, it's accessible in future Jupyter sessions without needing to specify it during startup. This feature facilitates seamless switching between different environments.
+1. Login to https://secure.vpn.ucf.edu/ 
+1. Use the bookmarklet from above to get your cookie. It should be automatically copied to your clipboard.
+1. Connect to the UCF VPN by running: `sudo ./vpn.sh`
+1. When prompted paste in your cookie from step 2 above.
+1. Follow the on-screen instructions.
