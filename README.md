@@ -1,9 +1,3 @@
---------------------------------------------------------------------------------------
-**Author:**        R. Paul Wiegand  
-**Date Created:**  2018-11-26  
-**Modified By:**   Austin Davis, 2023-12-06
---------------------------------------------------------------------------------------
-
 # Installation
 This package contains three two to start a Jupyter Notebook (JN) server:
 1. **vpn.sh**: Script to connect to the UCF vpn.
@@ -28,3 +22,6 @@ javascript:(function() {
 1. Connect to the UCF VPN by running: `sudo ./vpn.sh`
 1. When prompted paste in your cookie from step 2 above.
 1. Follow the on-screen instructions.
+
+# Acknowledgement
+Thanks to Dr. R. Paul Wiegand who wrote the original scripts (available in the `archive` folder). Special thanks to Sonny Bhatia who wrote `vpn.sh`, the original bookmarklet, and pivoted the original scripts to their interactive versions. 
