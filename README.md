@@ -36,9 +36,9 @@ To use your own conda environment from within a Jupyter notebook, first install 
 1. Connect to the user side of the cluster `ssh newton.ist.ucf.edu`
 2. Start an interactive session on a compute node with `srun --time=0:30:00 /bin/bash`
 3. Create or activate the conda environment with `conda activate $ENV_NAME`
-4. Run `conda install -c anaconda ipykernel` to install ipykernel
-5. Install any other packages/dependencies you need
-6. Add your conda environment to the jupyter server kernels list with:
+4. Run `conda install -c anaconda ipykernel pylint` to manage kernels and ensure linting works correctly
+6. Install any other packages/dependencies you need
+7. Add your conda environment to the jupyter server kernels list with:
     ```sh
     python -m ipykernel install --user --name "$ENV_NAME" --display-name "Python ($ENV_NAME)"
     ```
