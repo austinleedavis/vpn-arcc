@@ -4,7 +4,7 @@
 
 set -e
 
-salloc_command='salloc --job-name=Jupyter_Server --nodes=1 --ntasks-per-node=1 --mem=64GB --time=02:00:00'
+salloc_command='salloc --job-name=Jupyter_Server --nodes=1 --ntasks-per-node=1 --mem=64GB --time=01:00:00'
 
 PIDFILE=/var/run/openconnect.pid
 
@@ -25,9 +25,8 @@ Next step:
     Default parameters:
         --nodes=1
         --ntasks-per-node=1
-        --gpus=1
         --mem=64GB
-        --time = 02:00:00
+        --time=01:00:00
  3. DO NOT close this terminal; salloc starts an INTERACTIVE session!
 -----------------------------------------------------------------------
 Shutdown:
@@ -40,6 +39,16 @@ EOF
 }
 
 test $UID -ne 0 && echo 👑 Must be root  && exit 2
+
+BLUE="\033[1;34m"
+NC="\033[0m"
+
+echo "=====================INSTRUCTIONS==============================="
+echo -e "Follow the prompts at ${BLUE}https://secure.vpn.ucf.edu/${NC} to authenticate with the UCF VPN."
+echo "Then use the bookmarklet to copy your authentication cookie."
+echo "Bookmarklet command:"
+echo "    javascript:window.alert(document.cookie.match(/webvpn=(.*);/)[1])"
+echo "=====================++++++++++++==============================="
 
 test -f $PIDFILE && pgrep -aF $PIDFILE > /dev/null && echo 👍 openconnect already running  && display_instructions && exit 3
 
