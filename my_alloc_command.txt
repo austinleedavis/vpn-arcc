@@ -1,0 +1,1 @@
+salloc --job-name=Jupyter_Server --nodes=1 --ntasks-per-node=1 --mem=64GB --time=01:00:00

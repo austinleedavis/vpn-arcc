@@ -4,7 +4,7 @@
 
 set -e
 
-salloc_command='salloc --job-name=Jupyter_Server --nodes=1 --ntasks-per-node=1 --mem=64GB --time=01:00:00'
+salloc_command=$(<my_alloc_command.txt)
 
 PIDFILE=/var/run/openconnect.pid
 
