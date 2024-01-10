@@ -21,14 +21,35 @@ To get started, simply run `vpn.sh` as root and follow the on-screen instruction
 Then (in a seperate shell) run `startJupyterServer.sh` and follow the on-screen instructions. 
 Both scripts provide CLI options using the `--help` argument.
 
-## Instructions
+```sh
+Usage: ./vpn.sh [option...]
+
+   --kill      Kill the VPN connection
+   --help      Display this help message
+   --salloc    Specify a custom file for salloc_command
+   --server    Server to perform operations on. Default: 'newton'
+   --bookmark  Display the bookmarklet code and copy it to clipboard using xclip
+Note: This script requires root privileges.
+
+
+Usage: ./startJupyterServer.sh [option...]
+
+   --help     Display this help message
+   --server   Specify the server name. Options are:
+              newton - Sets the server to newton.ist.ucf.edu
+              stokes - Sets the server to stokes.ist.ucf.edu
+              If not specified, defaults to newton.ist.ucf.edu
+
+```
+
+## Running the Jupyter Server
 
 1. Login to https://secure.vpn.ucf.edu/ 
 1. Use the bookmarklet from above to get your cookie. It should be automatically copied to your clipboard.
 1. Connect to the UCF VPN by running: `sudo ./vpn.sh`
 1. When prompted paste in your cookie from step 2 above.
 1. Follow the on-screen instructions to ...
-   1. ssh to newton
+   1. ssh to either newton or stokes (default: newton)
    2. Run the `salloc` command copied to your clipboard to start an interactive session on the compute cluster
 1. Open a new terminal (keep the other one open -- it's interactive!)
 1. Run `./startJupyterServer.sh`. This starts the Jupyter lab server.
@@ -39,7 +60,7 @@ You can now access Jupyter Lab at the URL displayed at the end of the `./startJu
 Once a conda environment is installed as a Jupyter kernel, it's accessible in future Jupyter sessions without needing to specify it during startup. This feature facilitates seamless switching between different environments.
 
 To use your own conda environment from within a Jupyter notebook, first install the `ipykernel` library. Since package installation typically requires multiple threads (which restricts your ability to do so on the user side of the cluster), you should do this from the compute side of the cluster as follows:
-1. Connect to the user side of the cluster `ssh newton.ist.ucf.edu`
+1. Connect to the user side of the cluster with either `ssh newton.ist.ucf.edu` or `ssh stokes.ist.ucf.edu`
 2. Start an interactive session on a compute node with `srun --time=0:30:00 /bin/bash`
 3. Create or activate the conda environment with `conda activate $ENV_NAME`
 4. Run `conda install -c anaconda ipykernel pylint` to manage kernels and ensure linting works correctly
