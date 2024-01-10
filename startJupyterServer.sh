@@ -1,6 +1,6 @@
 #!/bin/bash
 
-server_name="newton.ist.ucf.edu"
+server_address="newton.ist.ucf.edu"
 
 display_help() {
     echo "Usage: $0 [option...]" >&2
@@ -21,8 +21,8 @@ while true; do
     --help ) display_help; shift ;;
     --server )
       case "$2" in
-        newton ) server_name="newton.ist.ucf.edu"; shift 2 ;;
-        stokes ) server_name="stokes.ist.ucf.edu"; shift 2 ;;
+        newton ) server_address="newton.ist.ucf.edu"; shift 2 ;;
+        stokes ) server_address="stokes.ist.ucf.edu"; shift 2 ;;
         * ) echo "Invalid server name"; exit 1 ;;
       esac
       ;;
