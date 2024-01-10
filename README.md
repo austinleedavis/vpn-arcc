@@ -1,9 +1,9 @@
 # Installation
-This package contains three two to start a Jupyter Notebook (JN) server:
+This package contains two scripts to start a Jupyter Notebook (JN) server:
 1. **vpn.sh**: Script to connect to the UCF vpn.
 1. **startJupyterServer.sh**: Script to start a Jupyter Labs server.
 
-Add the following bookmarklet to your browser favorites bar (or run the code in your browser console):
+Add the following [bookmarklet](https://en.wikipedia.org/wiki/Bookmarklet) to your browser's favorites bar (or run the code in your [browser console](https://www.codecademy.com/article/running-javascript-in-the-browser-console)):
 ```js
 javascript:(function() {  
     var cookieMatch = document.cookie.match(/webvpn=(.*?);/);  
@@ -16,6 +16,12 @@ javascript:(function() {
 ```
 
 # Usage
+
+To get started, simply run `vpn.sh` as root and follow the on-screen instructions. 
+Then (in a seperate shell) run `startJupyterServer.sh` and follow the on-screen instructions. 
+Both scripts provide CLI options using the `--help` argument.
+
+## Instructions
 
 1. Login to https://secure.vpn.ucf.edu/ 
 1. Use the bookmarklet from above to get your cookie. It should be automatically copied to your clipboard.
