@@ -4,9 +4,57 @@
 
 set -e
 
-salloc_command=$(<my_alloc_command.txt)
-
 PIDFILE=/var/run/openconnect.pid
+salloc_command=$(<my_alloc_command.txt)
+server_name="newton.ist.ucf.edu"
+
+# Function to display help message
+display_help() {
+    echo "Usage: $0 [option...]" >&2
+    echo 
+    echo "   --kill      Kill the VPN connection"
+    echo "   --help      Display this help message"
+    echo "   --salloc    Specify a custom file for salloc_command"
+    echo "   --server    Server to perform operations on. Default: 'newton'"
+    echo "   --bookmark  Display the bookmarklet code and copy it to clipboard using xclip"
+    echo "Note: This script requires root privileges."
+    exit 1
+}
+
+kill_ssh() {
+    ssh newton.ist.ucf.edu -O exit
+    ssh stokes.ist.ucf.edu -O exit
+    sudo kill $(cat $PIDFILE)
+}
+
+show_bookmarklet(){
+    echo "Add a bookmark in your with the following URL: (copied to your clipboard)"
+    echo
+    bookmarklet_cmd="javascript:(function() {  var cookieMatch = document.cookie.match(/webvpn=(.*?);/);  if (cookieMatch && cookieMatch[1]) {    navigator.clipboard.writeText(cookieMatch[1]);} else {    alert(%27No matching cookie found%27);  }})();"
+    echo $bookmarklet_cmd
+    echo $bookmarklet_cmd | xclip -selection clipboard
+    echo 
+    exit 1
+}
+
+# Parse command line options
+while true; do
+  case "$1" in
+    --kill ) kill_ssh; shift ;;
+    --help ) display_help; shift ;;
+    --salloc-file ) salloc_command=$(<$2); shift 2 ;;
+    --bookmark ) show_bookmarklet; shift ;;
+    --server )
+      case "$2" in
+        newton ) server_name="newton.ist.ucf.edu"; shift 2 ;;
+        stokes ) server_name="stokes.ist.ucf.edu"; shift 2 ;;
+        * ) echo "Invalid server name"; exit 1 ;;
+      esac
+      ;;
+    * ) break ;;
+  esac
+done
+
 
 display_instructions() {
     echo "=====================INSTRUCTIONS==============================="
@@ -19,8 +67,8 @@ display_instructions() {
 
 Next step:
 -----------------------------------------------------------------------
- 1. Connect to newton with:
-      ssh newton.ist.ucf.edu
+ 1. Connect to server with:
+      ssh $server_name
  2. Run the command we copied to your clipboard, modifying any parameters as needed.
     Default parameters:
         --nodes=1
@@ -29,9 +77,9 @@ Next step:
         --time=01:00:00
  3. DO NOT close this terminal; salloc starts an INTERACTIVE session!
 -----------------------------------------------------------------------
-Shutdown:
+Shutdown: use `$0 --kill` or...
  1. Clean up port forwarding with:
-    ssh newton.ist.ucf.edu -O exit
+    ssh $server_name -O exit
  2. Terminate VPN connection with:
     sudo kill $(cat $PIDFILE)
 -----------------------------------------------------------------------
