@@ -1,25 +1,34 @@
-# Installation
-This package contains two scripts to start a Jupyter Notebook (JN) server:
-1. **vpn.sh**: Script to connect to the UCF vpn.
-1. **startJupyterServer.sh**: Script to start a Jupyter Labs server.
 
-Add the following [bookmarklet](https://en.wikipedia.org/wiki/Bookmarklet) to your browser's favorites bar (or run the code in your [browser console](https://www.codecademy.com/article/running-javascript-in-the-browser-console)):
-```js
-javascript:(function() {  
-    var cookieMatch = document.cookie.match(/webvpn=(.*?);/);  
-    if (cookieMatch && cookieMatch[1]) {    
-        navigator.clipboard.writeText(cookieMatch[1]);    
-        alert(cookieMatch[1]);  
-    } else {    
-        alert(%27No matching cookie found%27);  
-    }})();
-```
+
+# Installation
+
+1. **Install Prerequisites**: This package requires `openconnect` which can be installed with:
+    ```sh
+    sudo apt install -y openconnect
+    ```
+
+2. **Setup Cookie Bookmarklet**: Add the following [bookmark](https://en.wikipedia.org/wiki/Bookmarklet) to your browser's favorites bar (or run the code in your [browser console](https://www.codecademy.com/article/running-javascript-in-the-browser-console)):
+    ```js
+    javascript:(function() {  
+        var cookieMatch = document.cookie.match(/webvpn=(.*?);/);  
+        if (cookieMatch && cookieMatch[1]) {    
+            navigator.clipboard.writeText(cookieMatch[1]);    
+            alert(cookieMatch[1]);  
+        } else {    
+            alert(%27No matching cookie found%27);  
+        }})();
+    ```
 
 # Usage
 
-To get started, simply run `vpn.sh` as root and follow the on-screen instructions. 
-Then (in a seperate shell) run `startJupyterServer.sh` and follow the on-screen instructions. 
-Both scripts provide CLI options using the `--help` argument.
+1. Simply run `sudo ./vpn.sh` and follow the on-screen instructions: 
+    ![instructions](assets/instructions.png)
+
+2. When you see the Cisco Secure client Download, click your Cookie bookmark or run the Bookmarklet command in the console: 
+    ![cisco](assets/cisco.png)
+
+3. Paste the cookie string in the terminal to connect to the VPN.
+
 
 ```sh
 Usage: ./vpn.sh [option...]
@@ -30,19 +39,10 @@ Usage: ./vpn.sh [option...]
    --server    Server to perform operations on. Default: 'newton'
    --bookmark  Display the bookmarklet code and copy it to clipboard using xclip
 Note: This script requires root privileges.
-
-
-Usage: ./startJupyterServer.sh [option...]
-
-   --help     Display this help message
-   --server   Specify the server name. Options are:
-              newton - Sets the server to newton.ist.ucf.edu
-              stokes - Sets the server to stokes.ist.ucf.edu
-              If not specified, defaults to newton.ist.ucf.edu
-
 ```
 
-## Running the Jupyter Server
+
+## Running a Jupyter Server
 
 1. Login to https://secure.vpn.ucf.edu/ 
 1. Use the bookmarklet from above to get your cookie. It should be automatically copied to your clipboard.
