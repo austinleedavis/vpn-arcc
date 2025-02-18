@@ -80,7 +80,7 @@ display_vpn_login_instructions() {
     echo -e "Follow the prompts at ${BLUE}https://secure.vpn.ucf.edu/${NC} to authenticate with the UCF VPN."
     echo "Then use the bookmarklet to copy your authentication Cookie 🍪."
     echo "Bookmarklet command:"
-    echo "    javascript:window.alert(document.cookie.match(/webvpn=(.*);/)[1])"
+    echo "    javascript:window.alert(document.cookie.match(/webvpn=([^;]*)/)[1])"
     echo "=====================++++++++++++==============================="
 }
 
